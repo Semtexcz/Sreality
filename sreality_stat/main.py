@@ -19,13 +19,14 @@ def scrap_all(typ_obchodu="prodej", typ_stavby="byty", pages=None):
                              pages=pages)  # vrátí ULR adresy jednotliých inzerátů
     print("1/8 Data scrapnuta, získávám URLs.")
 
+    # TODO: všechny kroky odtud by šlo udělat v jednom for cyklu. Otázka je jestli i krok 2, který používá selenium.
     # 2 = Získání URLS
     data = elements_and_ids(data)
     # data.to_excel(r"a1_URLs_prodej_byty.xlsx")
     print("2/8 Získány URL, nyní získávám Souřadnice, Ceny a Popis - několik minut...")
 
     # 3 = získání Souřadnic, Ceny a Popisu = z JSON
-    data["coords"], data["cena"], data["popis"] = zip(*data['url_id'].map(get_coords_price_meters))
+    data["coords"], data["cena"], data["popis"] = zip(*data['url_id'].map(get_coords_price_meters)) # TODO: nepoužívat funkci map, prostě to udělat ve for cyklu a přidat status bar
     print("3/8 Získány Souřadnice, Ceny a Popis, nyní získávám informace z URLs.")
 
     # 4 = Prodej + Dům + Pokoje = z URL
