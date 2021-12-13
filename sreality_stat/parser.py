@@ -83,7 +83,11 @@ def parse_place(coords):
         new_coords.append(".".join(arr))
 
     address = get_address(new_coords[0], new_coords[1])
-    PSC = address.get("postcode", "").replace(" ", "").replace("-", "")
+    try:
+        PSC = "".join([_ for _ in address.get("postcode") if
+                       _.isnumeric()])  # address.get("postcode", "").replace(" ", "").replace("-", "")
+    except Exception:
+        PSC = None
     if PSC:
         PSC = int(PSC)
     ulice = address.get("road")
