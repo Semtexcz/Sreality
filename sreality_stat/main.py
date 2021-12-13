@@ -8,7 +8,7 @@ from sreality_stat.scraper import get_soup_elements, elements_and_ids
 
 def run():
     data = scrap_all()
-    now = str(arrow.now()).split("T")[0]
+    now = str(arrow.now())
     path = pathlib.Path(__file__).parent / "data" / f"{now}_estates"
     data.to_csv(str(path))
 
